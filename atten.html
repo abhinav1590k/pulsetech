@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Attendance System</title>
+    <link rel="stylesheet" href="attend.css" />
+  </head>
+  <body>
+    <!-- Attendance Section -->
+    <section class="attendance-container" id="attendanceSection">
+      <h2>Mark Attendance</h2>
+      <div class="form-group">
+        <label for="employeeSelect">Employee:</label>
+        <select id="employeeSelect">
+          <option value="Alice Johnson">Alice Johnson</option>
+          <option value="Emily Chen">Emily Chen</option>
+          <option value="Michael Davis">Michael Davis</option>
+          <option value="Sophia Lee">Sophia Lee</option>
+          <option value="Olivia Brown">Olivia Brown</option>
+          <option value="Benjamin White">Benjamin White</option>
+          <option value="Lily Patel">Lily Patel</option>
+          <option value="Ethan Hall">Ethan Hall</option>
+          <option value="Ava Martin">Ava Martin</option>
+          <option value="Julia Kim">Julia Kim</option>
+          <option value="Alexander Brooks">Alexander Brooks</option>
+          <option value="Isabella Garcia">Isabella Garcia</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="dateInput">Date:</label>
+        <input type="date" id="dateInput" placeholder="Select Date" />
+      </div>
+
+      <div class="form-group">
+        <label for="statusSelect">Attendance Status:</label>
+        <select id="statusSelect">
+          <option value="Present">Present</option>
+          <option value="Absent">Absent</option>
+          <option value="Half Day">Half Day</option>
+        </select>
+      </div>
+
+      <button id="markAttendanceBtn">Mark Attendance</button>
+    </section>
+
+    <!-- Attendance Statistics Chart -->
+    <section class="chart-container" id="attendanceChartSection">
+      <h2>Attendance Statistics - October 2024</h2>
+      <canvas id="attendanceChart"></canvas>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="attend.js"></script>
+  </body>
+</html>

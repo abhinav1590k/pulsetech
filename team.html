@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard</title>
+    <style>
+      * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  width: 250px;
+  background: #3498db; /* Changed to a blue color */
+  color: #fff;
+  height: 100vh;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidebar h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.menu-item {
+  padding: 15px;
+  margin: 10px 0;
+  background: #f1c40f; /* Changed to a yellow-orange color */
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.3s;
+}
+
+.menu-item:hover {
+  background: #2ecc71; /* Changed to a green color */
+}
+
+.menu-item.active {
+  background: #f1c40f; /* Changed to a yellow-orange color */
+}
+
+.menu-item:last-child {
+  margin-top: 50px;
+}
+
+/* Main Content Styling */
+.main-content {
+  margin-left: 250px;
+  padding: 20px;
+  width: 800px;
+  margin-top: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  color: #333;
+}
+
+.header button {
+  padding: 10px 20px;
+  background: #e74c3c; /* Changed to a red color */
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.table_header, .calendar-container, .chart-container, .leave-container {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+  margin-bottom: 30px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid #ddd;
+  padding: 15px;
+  text-align: center;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+canvas {
+  max-width: 100%;
+}
+
+button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #e74c3c; /* Changed to a red color */
+  color: #fff;
+  cursor: pointer;
+}
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div>
+            <h2>Team Dashboard</h2>
+            <div class="menu-item" id="detailsBtn">Team Details</div>
+            <div class="menu-item" id="attendanceBtn">Attendance</div>
+            <div class="menu-item" id="leaveBtn">Apply for Leave</div>
+            <div class="menu-item" id="progressBtn">Attendance Statistics</div>
+        </div>
+        <div class="menu-item" id="logoutBtn">Log Out</div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <section class="table__header" id="teamDetailsSection">
+            <h1>Team Details</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Team</th>
+                        <th>Team Leader</th>
+                        <th>Team Members</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Team A</td>
+                        <td>Rohit</td>
+                        <td>Alice Johnson, Emily Chen, Michael Davis</td>
+                    </tr>
+                    <tr>
+                        <td>Team B</td>
+                        <td>Neha</td>
+                        <td>Sophia Lee, Olivia Brown, Benjamin White</td>
+                    </tr>
+                    <tr>
+                        <td>Team C</td>
+                        <td>Sakshi</td>
+                        <td>Lily Patel, Ethan Hall, Ava Martin</td>
+                    </tr>
+                    <tr>
+                        <td>Team D</td>
+                        <td>Aman</td>
+                        <td>Julia Kim, Alexander Brooks, Isabella Garcia</td>
+                    </tr>
+                    <tr>
+                        <td>Team E</td>
+                        <td>Krishna</td>
+                        <td>Kane Watts, Mike Tyson, Luke Harper </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Attendance Section -->
+        <section class="calendar-container" id="attendanceSection" style="display: none;">
+            <h2>Mark Attendance - October 2024</h2>
+            <select id="employeeSelect">
+                <option value="Fang Leng">Fang Leng</option>
+                <option value="Chai Xiao Qi">Chai Xiao Qi</option>
+                <option value="Gu Wei Yi">Gu Wei Yi</option>
+                <option value="Si Tu Mo">Si Tu Mo</option>
+                <option value="Fang Lie">Fang Lie</option>
+                <option value="Fu Pei">Fu Pei</option>
+                <!-- Add more team members as needed -->
+            </select>
+            <input type="date" id="dateInput">
+            <select id="statusSelect">
+                <option value="attendance">Present</option>
+                <option value="leave">Absent</option>
+                <option value="half-day">Half-Day</option>
+                <option value="full-day">Full-Day</option>
+            </select>
+            <button id="markAttendanceBtn">Mark Attendance</button>
+            <div class="calendar" id="attendanceCalendar"></div>
+        </section>
+
+        <!-- Leave Application Section -->
+        <section class="leave-container" id="leaveSection" style="display: none;">
+            <h2>Apply for Leave</h2>
+            <select id="leaveEmployeeSelect">
+                <option value="Fang Leng">Fang Leng</option>
+                <option value="Chai Xiao Qi">Chai Xiao Qi</option>
+                <option value="Gu Wei Yi">Gu Wei Yi</option>
+                <option value="Si Tu Mo">Si Tu Mo</option>
+            </select>
+            <input type="date" id="leaveStartDate" placeholder="Start Date">
+            <textarea id="leaveReason" placeholder="Reason for Leave" rows="4"></textarea>
+            <button id="applyLeaveBtn">Submit Leave Application</button>
+        </section>
+
+        <!-- Attendance Statistics Chart -->
+        <section class="chart-container" id="attendanceChartSection" style="display: none;">
+            <h2>Attendance - October 2024</h2>
+            <canvas id="attendanceChart"></canvas>
+        </section>
+    </div>
+
+    <script>
+        // Toggle Sections Visibility Based on Menu Item Click
+        document.getElementById("detailsBtn").addEventListener("click", () => {
+            showSection("teamDetailsSection");
+        });
+
+        document.getElementById("attendanceBtn").addEventListener("click", () => {
+            showSection("attendanceSection");
+        });
+
+        document.getElementById("leaveBtn").addEventListener("click", () => {
+            showSection("leaveSection");
+        });
+
+        document.getElementById("progressBtn").addEventListener("click", () => {
+            showSection("attendanceChartSection");
+        });
+
+        function showSection(sectionId) {
+            document.getElementById("teamDetailsSection").style.display = "none";
+            document.getElementById("attendanceSection").style.display = "none";
+            document.getElementById("leaveSection").style.display = "none";
+            document.getElementById("attendanceChartSection").style.display = "none";
+
+            document.getElementById(sectionId).style.display = "block";
+        }
+
+        // Initialize the visibility
+        showSection("teamDetailsSection");
+
+        // Attendance Statistics Chart Setup
+        const attendanceCtx = document.getElementById('attendanceChart').getContext('2d');
+        const attendanceData = {
+            labels: [
+                'Team A', 'Team B', 'Team C', 'Team D', 'Team E'
+            ],
+            datasets: [{
+                label: 'Days Present',
+                data: [22, 20, 23, 18, 21], // Example attendance data for each team
+                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF']
+            }]
+        };
+
+        const attendanceChart = new Chart(attendanceCtx, {
+            type: 'bar',
+            data: attendanceData,
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PulseTech - Dashboard</title>
+    <link rel="stylesheet" href="company.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="logo.jpg" alt="PulseTech Logo">
+        </div>
+       <h1>PulseTech</h1>
+        <nav>
+            <a href="company.html">Home</a>
+            <a href="#contact" class="contact-link">Contact Us</a>
+           
+        </nav>
+    </header>
+
+    <!-- Login Page -->
+    <section id="login-page" class="page">
+        <div class="login-container">
+            <h1>Welcome to PulseTech</h1>
+            <p>Please login to access your dashboard</p>
+            <form id="login-form">
+                <input type="text" id="username" placeholder="Username" required >
+                <input type="password" id="password" placeholder="Password" required>
+                <select id="role">
+                    
+                    <option value="admin" >Admin</option>
+              
+                    <option value="employee">Leader</option>
+                </select>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </section>
+
+   
+
+   
+    <div class="contact-popup" id="contact-popup">
+      <div class="contact-content">
+          <h3>Contact Us</h3>
+          <p>Reach out to us at <strong>contact@PulseTech.com</strong></p>
+          <button onclick="closeContactPopup()">Close</button>
+      </div>
+  </div>
+    <script src="company.js"></script>
+</body>
+</html>

@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Task Dashboard</title>
+    
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <style>
+            /* Global Styles */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family:  sans-serif;
+}
+
+body {
+  background-color: #f0f0f0;
+  overflow-x: hidden;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  height: 100vh;
+}
+
+.left {
+  background-color: #2f343a;
+  width: 360px;
+  padding: 20px;
+  transition: all 0.5s ease;
+}
+
+.left.active {
+  width: 70px;
+}
+
+.right {
+  width: calc(100% - 250px);
+  padding: 20px;
+  transition: all 0.5s ease;
+}
+
+.right.overlay {
+  width: calc(100% - 70px);
+}
+
+/* Header Styles */
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.logo h2 {
+  color: #fff;
+  margin-left: 10px;
+}
+
+.close {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.close span {
+  font-size: 24px;
+  color: #fff;
+}
+
+/* Nav Styles */
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+}
+
+nav ul li:hover {
+  background-color: #333;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #fff;
+}
+
+nav ul li a span {
+  margin-right: 10px;
+}
+
+nav ul li a .title {
+  font-size: 16px;
+}
+
+/* Upgrade Styles */
+
+.upgrade {
+  padding: 20px;
+  background-color: #333;
+  color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.upgrade h4 {
+  margin-bottom: 10px;
+}
+
+.upgrade button {
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.upgrade button:hover {
+  background-color: #3e8e41;
+}
+
+/* Right Section Styles */
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.searchBx {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.searchBx h2 {
+  margin-right: 10px;
+}
+
+.inputBx {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.inputBx input {
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+}
+
+.inputBx span {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.user span {
+  margin-right: 10px;
+}
+
+.arrow {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.toggle span {
+  margin-right: 10px;
+}
+
+/* Project Card Styles */
+
+.projectCard {
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.projectTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.projectTop h2 {
+  margin-right: 10px;
+}
+
+.projectDots {
+  cursor: pointer;
+}
+
+.projectProgress {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.process {
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.priority {
+  background-color: #ff9800;
+  color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.task {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.task h2 {
+  margin-bottom: 10px;
+}
+
+.task span {
+  margin-right: 10px;
+}
+
+.due {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.due h2 {
+  margin-bottom: 10px;
+}
+
+.myTasks {
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.tasksHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.tasksHead h2 {
+  margin-right: 10px;
+}
+
+.tasksDots {
+  cursor: pointer;
+}
+
+.tasks {
+  padding: 10px;
+}
+
+.tasks li {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.tasks li:hover {
+  background-color: #333;
+}
+
+.tasks li a {
+  text-decoration: none;
+  color: #333;
+}
+
+.tasks li a span {
+  margin-right: 10px;
+}
+
+.tasks li a .title {
+  font-size: 16px;
+}
+
+/* Responsive Styles */
+
+@media (max-width: 768px) {
+  .left {
+    width: 70px;
+  }
+
+  .right {
+    width: calc(100% - 70px);
+  }
+
+  .right.overlay {
+    width: calc(100% - 70px);
+  }
+}
+
+@media (max-width: 480px) {
+  .left {
+    width: 50px;
+  }
+
+  .right {
+    width: calc(100% - 50px);
+  }
+
+  .right.overlay {
+    width: calc(100% - 50px);
+  }
+}
+        </style>
+</head>
+
+<body>
+    <!-- container start -->
+    <div class="container">
+        <!-- left start -->
+        <div class="left">
+            <!-- header start -->
+            <header>
+                <!-- logo start -->
+                <div class="logo">
+                    <h2>ADMIN</h2>
+                    <div class="close">
+                        <span class="material-symbols-outlined">
+                            close
+                        </span>
+                    </div>
+                </div>
+                <!-- nav start -->
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="#">
+                                <span class="material-symbols-outlined full">
+                                    dashboard
+                                </span>
+                                <span class="title">Dashboard</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="atten.html">
+                                <span class="material-symbols-outlined">
+                                    check_box
+                                </span>
+                                <span class="title">Attendance</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="team.html">
+                                <span class="material-symbols-outlined">
+                                    group
+                                </span>
+                                <span class="title">Leader</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="leader.html">
+                                <span class="material-symbols-outlined">
+                                    check_box
+                                </span>
+                                <span class="title">Teams</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="task.html">
+                                <span class="material-symbols-outlined">
+                                    task
+                                </span>
+                                <span class="title">Add Task</span>
+                            </a>
+                        </li>
+                    
+                        
+                    </ul>
+                </nav>
+                <!-- nav end -->
+            </header>
+            <!-- header end -->
+            <!-- upgrade start -->
+            <div class="upgrade">
+                <h4>Upgrade to <bold>PRO</bold> for<br> more features</h4>
+                <div class="upBtn">
+                    <button>Upgrade</button>
+                </div>
+            </div>
+            <!-- upgrade end -->
+        </div>
+        <!-- left end -->
+        <!-- right start -->
+        <div class="right">
+            <!-- top start -->
+            <div class="top">
+                <!-- searchBx start -->
+                <div class="searchBx">
+                    <h2>Dashboard</h2>
+                    <div class="inputBx">
+                        <span class="material-symbols-outlined searchOpen">
+                            search
+                        </span>
+                        <input type="text" placeholder="Search...">
+                        <span class="material-symbols-outlined searchClose">
+                            close
+                        </span>
+                    </div>
+                </div>
+                <!-- searchBx end -->
+                <!-- user start -->
+                <div class="user">
+                    <span class="material-symbols-outlined">
+                        notifications
+                    </span>
+                    
+                    
+                    <div class="arrow">
+                        <span class="material-symbols-outlined">
+                            expand_more
+                        </span>
+                    </div>
+                    <div class="toggle">
+                        <span class="material-symbols-outlined">
+                            menu
+                        </span>
+                        <span class="material-symbols-outlined">
+                            close
+                        </span>
+                    </div>
+                </div>
+                <!-- user end -->
+            </div>
+            <!-- top end -->
+            <!-- main start -->
+            <main>
+                <!-- projectCard start -->
+                <div class="projectCard">
+                    <!-- projectTop start -->
+                    <div class="projectTop">
+                        <h2>FullStack<br><span>TechCorp</span></h2>
+                        <div class="projectDots">
+                            <span class="material-symbols-outlined">
+                                more_horiz
+                            </span>
+                        </div>
+                    </div>
+                    <!-- projectTop end -->
+                    <!-- projectProgress start -->
+                    <div class="projectProgress">
+                        <div class="process">
+                            <h2>In Progress</h2>
+                        </div>
+                        <div class="priority">
+                            <h2>High Priority</h2>
+                        </div>
+                    </div>
+                    <!-- projectProgress end -->
+                    <!-- groupImg start -->
+                    
+                
+                    <!-- groupImg end -->
+                    <!-- task start -->
+                    <div class="task">
+                        <h2>Task Done: <bold>35</bold> / 50</h2>
+                        <span class="line"></span>
+                    </div>
+                    <!-- task end -->
+                    <!-- due start -->
+                    <div class="due">
+                        <h2>Due Date: 25 August</h2>
+                    </div>
+                    <!-- due end -->
+                </div>
+                <!-- projectCard end -->
+                <!-- projectCard2 start -->
+                <div class="projectCard projectCard2">
+                    <div class="projectTop">
+                        <h2>UI Design<br><span>TechCorp</span></h2>
+                        <div class="projectDots">
+                            <span class="material-symbols-outlined">
+                                more_horiz
+                            </span>
+                        </div>
+                    </div>
+                    <div class="projectProgress">
+                        <div class="process">
+                            <h2>In Progress</h2>
+                        </div>
+                        <div class="priority">
+                            <h2>High Priority</h2>
+                        </div>
+                    </div>
+                    
+                    </div>
+                    <div class="task">
+                        <h2>Task Done: <bold>35</bold> / 50</h2>
+                        <span class="line"></span>
+                    </div>
+                    <div class="due">
+                        
+                    </div>
+                </div>
+
+                <!-- projectCard2 end -->
+                <!-- myTasks start -->
+                <div class="myTasks">
+                    <!-- tasksHead start -->
+                    <div class="tasksHead">
+                       
+                        <div class="tasksDots">
+                            <span class="material-symbols-outlined">
+                                more_horiz
+                            </span>
+                        </div>
+                    </div>
+                    <!-- tasksHead end -->
+                    <!-- tasks start -->
+                    <!-- myTasks start -->
+               
+                    <!-- tasksHead end -->
+                    
+
+                    <!-- tasks ens -->
+                
+
+                <!-- timeline end -->
+                <!-- calendar start -->
+               
+                    <!-- calendarHead end -->
+                    <!-- calendarData start -->
+                    
+                <!-- calendar end -->
+                <!-- messages start -->
+                
+    <!-- container end -->
+     <script>
+        let toggle = document.querySelector('.toggle');
+let left = document.querySelector('.left');
+let right = document.querySelector('.right');
+let close = document.querySelector('.close');
+let body = document.querySelector('body');
+let searchBx = document.querySelector('.searchBx');
+let searchOpen = document.querySelector('.searchOpen');
+let searchClose = document.querySelector('.searchClose');
+toggle.addEventListener('click', () => {
+    toggle.classList.toggle('active');
+    left.classList.toggle('active');
+    right.classList.toggle('overlay');
+    body.style.overflow = 'hidden';
+});
+close.onclick = () => {
+    toggle.classList.remove('active');
+    left.classList.remove('active');
+    right.classList.remove('overlay');
+    body.style.overflow = '';
+};
+searchOpen.onclick = () => {
+    searchBx.classList.add('active');
+};
+searchClose.onclick = () => {
+    searchBx.classList.remove('active');
+};
+window.onclick = (e) => {
+    if (e.target == right) {
+        toggle.classList.remove('active');
+        left.classList.remove('active');
+        right.classList.remove('overlay');
+        body.style.overflow = '';
+    }
+};
+     </script>
+</body>
+
+</html>
